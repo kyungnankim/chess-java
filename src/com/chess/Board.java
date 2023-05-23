@@ -68,8 +68,8 @@ public class Board {
 
         // 유효한 이동이라면 true 반환
         // 그렇지 않다면 false 반환
-    
-	public boolean isValidMove(Move move, Piece[][] pieces) {
+    	public boolean isValidMove(Move move, Player currentPlayer) {
+	//public boolean isValidMove(Move move, Piece[][] pieces) {
 	    int sourceRow = move.getSourcePosition().getRow();
 	    int sourceCol = move.getSourcePosition().getColumn();
 	    int destRow = move.getDestinationPosition().getRow();
@@ -86,7 +86,7 @@ public class Board {
 
     	  */
     	 
-    	 
+    	 /*
 
 	    if (sourcePiece.isEmpty() || sourcePiece.getPlayer() != currentPlayer) {
 	        // 움직일 말이 현재 플레이어의 말이 아니거나, 빈 공간일 경우 유효하지 않음
@@ -97,6 +97,7 @@ public class Board {
 	        // 해당 말의 유효한 움직임인 경우 유효함
 	        return true;
 	    }
+	    */
 
 	    return false;
 	}
@@ -129,14 +130,18 @@ public class Board {
 	        makeCastleMove(move);
 	    }
 
-	    // 기타 게임 상태 업데이트
-	    // 예: 앙파상, 폰 프로모션 등
-
+	/* 기타 게임 상태 업데이트
+	    //앙파상
+	     * 
+	    //폰 프로모션
+	     * 
 	    // 플레이어 변경 등 게임 진행
-
+	     * 
 	    // 체크/체크메이트/스테일메이트 상태 확인
-
+	     * 
 	    // 필요한 상태 업데이트 및 게임 진행
+	    
+	*/
 }
     private int getRowFromPosition(Position position) {
         return position.getRow();
@@ -220,9 +225,11 @@ public class Board {
     	    for (int[] offset : surroundingOffsets) {
     	        int newRow = kingRow + offset[0];
     	        int newCol = kingCol + offset[1];
+    	        /*
     	        if (!isValidPosition(newRow, newCol) || !pieces[newRow][newCol].isEmpty()) {
     	            return false;
     	        }
+    	        */
     	    }
 
     	    // 킹이 체크 상태인지 확인
@@ -317,11 +324,15 @@ public class Board {
                 if (!piece.isEmpty() && piece.getPlayer() == currentPlayer) {
                     for (int destRow = 0; destRow < 8; destRow++) {
                         for (int destCol = 0; destCol < 8; destCol++) {
-                            Move move = new Move(getPositionFromRowCol(row, col), getPositionFromRowCol(destRow, destCol));
+                        	/* error 해결하기
+                        	Move move = new Move(getPositionFromRowCol(row, col), getPositionFromRowCol(destRow, destCol));
+
+                            //Move move = new Move(getPositionFromRowCol(row, col), getPositionFromRowCol(destRow, destCol));
                             if (isValidMove(move, currentPlayer)) {
                                 // 유효한 움직임이 존재하면 체크를 풀 수 있음
                                 return false;
                             }
+                             */
                         }
                     }
                 }
@@ -330,8 +341,8 @@ public class Board {
 
         return true; // 체크 상태이며 유효한 움직임이 없는 경우 체크메이트
     }
-
-    private boolean isCheck(Player currentPlayer) {
+    //public boolean isCheck(Player player) {
+    	public boolean isCheck(Player currentPlayer) {
         // 현재 플레이어의 킹의 위치 찾기
         int kingRow = -1;
         int kingCol = -1;
@@ -351,11 +362,13 @@ public class Board {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 Piece piece = pieces[row][col];
+                /* error 해결하기
                 if (!piece.isEmpty() && piece.getPlayer() == opponentPlayer) {
                     if (isValidMove(new Move(getPositionFromRowCol(row, col), getPositionFromRowCol(kingRow, kingCol)), opponentPlayer)) {
                         return true; // 킹을 공격할 수 있는 말이 존재하면 체크 상태
                     }
                 }
+                */
             }
         }
 
@@ -381,11 +394,14 @@ public class Board {
                 if (!piece.isEmpty() && piece.getPlayer() == currentPlayer) {
                     for (int destRow = 0; destRow < 8; destRow++) {
                         for (int destCol = 0; destCol < 8; destCol++) {
+                        	/* error 해결하기
                             Move move = new Move(getPositionFromRowCol(row, col), getPositionFromRowCol(destRow, destCol));
+                           
                             if (isValidMove(move, currentPlayer)) {
                                 // 유효한 움직임이 존재하면 스테일메이트가 아님
                                 return false;
                             }
+                            */
                         }
                     }
                 }

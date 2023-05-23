@@ -6,8 +6,18 @@ import com.chess.Player;
 import com.chess.Position;
 
 public class King extends Piece {
+	private boolean hasMoved;
+
     public King(Player player) {
         super(player);
+        hasMoved = false;
+    }
+    public boolean hasMoved() {
+        return hasMoved;
+    }
+
+    public void setMoved(boolean moved) {
+        hasMoved = moved;
     }
     @Override
     public String getSymbol() {
@@ -26,3 +36,4 @@ public class King extends Piece {
         return (rowDiff == 1 && colDiff == 0) || (rowDiff == 0 && colDiff == 1) || (rowDiff == 1 && colDiff == 1);
     }
 }
+

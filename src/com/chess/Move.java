@@ -5,14 +5,24 @@ public class Move {
     private Position destination;
     private Position sourcePosition;
     private Position destinationPosition;
-    
+
+    public Move(Position sourcePosition, Position destinationPosition) {
+        this.sourcePosition = sourcePosition;
+        this.destinationPosition = destinationPosition;
+    }
+
+/*
     public Move(Position source, Position destination,Position sourcePosition, Position destinationPosition) {
         this.source = source;
         this.destination = destination;
         this.sourcePosition = sourcePosition;
         this.destinationPosition = destinationPosition;
     }
-
+    public Move(Position sourcePosition, Position destinationPosition) {
+        this.sourcePosition = sourcePosition;
+        this.destinationPosition = destinationPosition;
+    }
+*/
     public Position getSourcePosition() {
         return sourcePosition;
     }
@@ -27,4 +37,6 @@ public class Move {
     public Position getDestination() {
         return destination;
     }
+    
+    
 }

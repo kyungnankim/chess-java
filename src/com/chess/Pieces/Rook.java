@@ -6,13 +6,21 @@ import com.chess.Player;
 import com.chess.Position;
 
 public class Rook extends Piece {
+    private boolean hasMoved;
+
     public Rook(Player player) {
         super(player);
     }
+    
+    public boolean hasMoved() {
+        return hasMoved;
+    }
+    
     @Override
     public String getSymbol() {
         return "R"; // Rook의 기호를 나타내는 값 반환
     }
+    
     @Override
     public boolean isValidMove(Move move, Piece[][] board) {
         Position source = move.getSourcePosition();

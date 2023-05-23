@@ -7,5 +7,9 @@ public class Player {
     private Player() {
         // private 생성자
     }
+
+    public Player opposite() {
+        return this == WHITE ? BLACK : WHITE;
+    }
     
 }
