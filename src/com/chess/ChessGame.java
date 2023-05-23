@@ -21,12 +21,12 @@ public class ChessGame {
 
             System.out.print("Enter source position (e.g., A2): ");
             String sourcePosition = scanner.nextLine();
-            System.out.print("Enter destination position (e.g., A4): ");
+            System.out.print("Enter destination position98 MKL           (e.g., A4): ");
             String destinationPosition = scanner.nextLine();
 
             if (isValidInput(sourcePosition, destinationPosition)) {
-            	Move move = new Move(sourcePosition, destinationPosition);
-
+            	//Move move = new Move(sourcePosition, destinationPosition);
+            	Move move = new Move( new Position(sourcePosition), new Position(destinationPosition));
                 if (board.isValidMove(move, currentPlayer)) {
                     if (board.isCastleMove(move)) {
                         board.makeCastleMove(move);
