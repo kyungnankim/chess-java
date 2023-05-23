@@ -70,79 +70,71 @@ public class Board {
         // 그렇지 않다면 false 반환
     	public boolean isValidMove(Move move, Player currentPlayer) {
 	//public boolean isValidMove(Move move, Piece[][] pieces) {
-	    int sourceRow = move.getSourcePosition().getRow();
-	    int sourceCol = move.getSourcePosition().getColumn();
-	    int destRow = move.getDestinationPosition().getRow();
-	    int destCol = move.getDestinationPosition().getColumn();
-	    Piece sourcePiece = pieces[sourceRow][sourceCol];
-   	 	Piece destPiece = pieces[destRow][destCol];
+		    int sourceRow = move.getSourcePosition().getRow();
+		    int sourceCol = move.getSourcePosition().getColumn();
+		    int destRow = move.getDestinationPosition().getRow();
+		    int destCol = move.getDestinationPosition().getColumn();
+		    Piece sourcePiece = pieces[sourceRow][sourceCol];
+	   	 	Piece destPiece = pieces[destRow][destCol];
         // 해당 움직임이 유효한지 검사하는 로직 구현
         // 체스 규칙에 따라 움직일 수 있는지 확인
-    	 /*
-    	    int sourceRow = getRowFromPosition(move.getSourcePosition());
-    	    int sourceCol = getColumnFromPosition(move.getSourcePosition());
-    	 	int destRow = getRowFromPosition(move.getDestinationPosition());
-    	 	int destCol = getColumnFromPosition(move.getDestinationPosition());
+    	
 
-    	  */
-    	 
-    	 /*
+		    if (sourcePiece.isEmpty() || sourcePiece.getPlayer() != currentPlayer) {
+		        // 움직일 말이 현재 플레이어의 말이 아니거나, 빈 공간일 경우 유효하지 않음
+		        return false;
+		    }
+	
+		    if (sourcePiece.isValidMove(sourceRow, sourceCol, destRow, destCol, destPiece)) {
+		        // 해당 말의 유효한 움직임인 경우 유효함
+		        return true;
+		    }
+		   
 
-	    if (sourcePiece.isEmpty() || sourcePiece.getPlayer() != currentPlayer) {
-	        // 움직일 말이 현재 플레이어의 말이 아니거나, 빈 공간일 경우 유효하지 않음
-	        return false;
+		    return false;
+    	}
+
+		private int getRowFromPosition(String position) {
+		    return 8 - Character.getNumericValue(position.charAt(1));
+		}
+
+		private int getColumnFromPosition(String position) {
+		    return position.charAt(0) - 'A';
 	    }
-
-	    if (sourcePiece.isValidMove(sourceRow, sourceCol, destRow, destCol, destPiece)) {
-	        // 해당 말의 유효한 움직임인 경우 유효함
-	        return true;
+	
+	    public void makeMove(Move move) {
+	        // 움직임을 수행하는 로직을 구현
+	        // 말의 위치를 변경하고, 기타 필요한 상태를 업데이트
+	    	int sourceRow = getRowFromPosition(move.getSourcePosition());
+		    int sourceCol = getColumnFromPosition(move.getSourcePosition());
+		    int destRow = getRowFromPosition(move.getDestinationPosition());
+		    int destCol = getColumnFromPosition(move.getDestinationPosition());
+	
+		    Piece sourcePiece = pieces[sourceRow][sourceCol];
+		    Piece destPiece = pieces[destRow][destCol];
+	
+		    // 움직일 말을 대상 위치로 이동
+		    pieces[destRow][destCol] = sourcePiece;
+		    pieces[sourceRow][sourceCol] = new Empty();
+	
+		    // 특수한 움직임인 경우 추가 로직 수행
+		    if (isCastleMove(move)) {
+		        makeCastleMove(move);
+		    }
+	
+		/* 기타 게임 상태 업데이트
+		    //앙파상
+		     * 
+		    //폰 프로모션
+		     * 
+		    // 플레이어 변경 등 게임 진행
+		     * 
+		    // 체크/체크메이트/스테일메이트 상태 확인
+		     * 
+		    // 필요한 상태 업데이트 및 게임 진행
+		    
+		*/
 	    }
-	    */
-
-	    return false;
-	}
-
-	private int getRowFromPosition(String position) {
-	    return 8 - Character.getNumericValue(position.charAt(1));
-	}
-
-	private int getColumnFromPosition(String position) {
-	    return position.charAt(0) - 'A';
-    }
-
-    public void makeMove(Move move) {
-        // 움직임을 수행하는 로직을 구현
-        // 말의 위치를 변경하고, 기타 필요한 상태를 업데이트
-    	int sourceRow = getRowFromPosition(move.getSourcePosition());
-	    int sourceCol = getColumnFromPosition(move.getSourcePosition());
-	    int destRow = getRowFromPosition(move.getDestinationPosition());
-	    int destCol = getColumnFromPosition(move.getDestinationPosition());
-
-	    Piece sourcePiece = pieces[sourceRow][sourceCol];
-	    Piece destPiece = pieces[destRow][destCol];
-
-	    // 움직일 말을 대상 위치로 이동
-	    pieces[destRow][destCol] = sourcePiece;
-	    pieces[sourceRow][sourceCol] = new Empty();
-
-	    // 특수한 움직임인 경우 추가 로직 수행
-	    if (isCastleMove(move)) {
-	        makeCastleMove(move);
-	    }
-
-	/* 기타 게임 상태 업데이트
-	    //앙파상
-	     * 
-	    //폰 프로모션
-	     * 
-	    // 플레이어 변경 등 게임 진행
-	     * 
-	    // 체크/체크메이트/스테일메이트 상태 확인
-	     * 
-	    // 필요한 상태 업데이트 및 게임 진행
-	    
-	*/
-}
     private int getRowFromPosition(Position position) {
         return position.getRow();
     }
